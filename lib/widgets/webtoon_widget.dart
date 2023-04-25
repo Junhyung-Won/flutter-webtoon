@@ -17,6 +17,35 @@ class Webtoon extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
+          /*
+          PageRouteBuilder(
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              var begin = const Offset(1.0, 0.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
+              var tween = Tween(
+                begin: begin,
+                end: end,
+              ).chain(
+                CurveTween(
+                  curve: curve,
+                ),
+              );
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                DetailScreen(
+              title: title,
+              thumb: thumb,
+              id: id,
+            ),
+            fullscreenDialog: true,
+          ), */
+
           MaterialPageRoute(
             builder: (context) => DetailScreen(
               title: title,
@@ -29,24 +58,27 @@ class Webtoon extends StatelessWidget {
       },
       child: Column(
         children: [
-          Container(
-            width: 250,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 15,
-                  offset: const Offset(10, 10),
-                  color: Colors.black.withOpacity(0.3),
-                )
-              ],
-            ),
-            child: Image.network(
-              thumb,
-              headers: const {
-                'Referer': 'https://comic.naver.com',
-              },
+          Hero(
+            tag: id,
+            child: Container(
+              width: 250,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 15,
+                    offset: const Offset(10, 10),
+                    color: Colors.black.withOpacity(0.3),
+                  )
+                ],
+              ),
+              child: Image.network(
+                thumb,
+                headers: const {
+                  'Referer': 'https://comic.naver.com',
+                },
+              ),
             ),
           ),
           const SizedBox(
